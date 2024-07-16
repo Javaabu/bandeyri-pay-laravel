@@ -1,5 +1,5 @@
 {
-    "name": "{Your Package}",
-    "description": "{package description}",
+    "name": "Bandeyri Pay Laravel",
+    "description": "Bandeyri pay gateway integration for Laravel",
     "version": "1"
 }

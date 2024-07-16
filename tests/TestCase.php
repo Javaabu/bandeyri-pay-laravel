@@ -1,10 +1,10 @@
 <?php
 
-namespace Javaabu\{YourPackage}\Tests;
+namespace Javaabu\BandeyriPayLaravel\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Javaabu\{YourPackage}\{YourPackage}ServiceProvider;
-use Javaabu\{YourPackage}\Tests\TestSupport\Providers\TestServiceProvider;
+use Javaabu\BandeyriPayLaravel\BandeyriPayLaravelServiceProvider;
+use Javaabu\BandeyriPayLaravel\Tests\TestSupport\Providers\TestServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [
-            {YourPackage}ServiceProvider::class,
+            BandeyriPayLaravelServiceProvider::class,
             TestServiceProvider::class
         ];
     }
