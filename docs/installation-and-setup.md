@@ -14,7 +14,7 @@ composer require javaabu/bandeyri-pay-laravel
 Publishing the config file is optional:
 
 ```bash
-php artisan vendor:publish --provider="Javaabu\BandeyriPayLaravel\BandeyriPayLaravelServiceProvider" --tag="bandeyri-pay-laravel-config"
+php artisan vendor:publish --provider="Javaabu\BandeyriPay\BandeyriPayServiceProvider" --tag="bandeyri-pay-laravel-config"
 ```
 
 This is the default content of the config file:

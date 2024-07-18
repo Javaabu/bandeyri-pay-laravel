@@ -1,8 +1,8 @@
 <?php
 
-namespace Javaabu\BandeyriPayLaravel\Tests\Feature;
+namespace Javaabu\BandeyriPay\Tests\Feature;
 
-use Javaabu\BandeyriPayLaravel\Tests\TestCase;
+use Javaabu\BandeyriPay\Tests\TestCase;
 
 class ExampleTest extends TestCase
 {

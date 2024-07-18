@@ -6,7 +6,7 @@
     "keywords": [
         "javaabu",
         "laravel",
-        "bandeyri-pay-laravel"
+        "bandeyri-pay"
     ],
     "authors": [
         {
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Javaabu\\BandeyriPayLaravel\\": "src/"
+            "Javaabu\\BandeyriPay\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Javaabu\\BandeyriPayLaravel\\Tests\\": "tests/"
+            "Javaabu\\BandeyriPay\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -40,7 +40,7 @@
         },
         "laravel": {
             "providers": [
-                "Javaabu\\BandeyriPayLaravel\\BandeyriPayLaravelServiceProvider"
+                "Javaabu\\BandeyriPay\\BandeyriPayServiceProvider"
             ]
         }
     },

@@ -1,6 +1,6 @@
 <?php
 
-namespace Javaabu\BandeyriPayLaravel\Tests\TestSupport\Providers;
+namespace Javaabu\BandeyriPay\Tests\TestSupport\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
