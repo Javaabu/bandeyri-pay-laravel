@@ -1,10 +1,10 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Commands;
+namespace Javaabu\BandeyriPay\Commands;
 
 use Illuminate\Console\Command;
 
-class BandeyriGatewayCommand extends Command
+class BandeyriPayCommand extends Command
 {
     public $signature = 'bandeyri-gateway';
 

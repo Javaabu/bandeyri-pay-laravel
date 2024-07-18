@@ -1,16 +1,16 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Responses;
+namespace Javaabu\BandeyriPay\Responses;
 
 use Exception;
 use Illuminate\Http\Client\Response;
-use Javaabu\BandeyriGateway\Exceptions\InvalidData;
-use Javaabu\BandeyriGateway\Exceptions\ActionFailed;
-use Javaabu\BandeyriGateway\Exceptions\Unauthorized;
-use Javaabu\BandeyriGateway\Requests\BandeyriRequest;
-use Javaabu\BandeyriGateway\Exceptions\ResourceNotFound;
+use Javaabu\BandeyriPay\Exceptions\InvalidData;
+use Javaabu\BandeyriPay\Exceptions\ActionFailed;
+use Javaabu\BandeyriPay\Exceptions\Unauthorized;
+use Javaabu\BandeyriPay\Requests\BandeyriRequest;
+use Javaabu\BandeyriPay\Exceptions\ResourceNotFound;
 
-class BandeyriGatewayResponse extends Response
+class BandeyriPayResponse extends Response
 {
     public function __construct(
         $response,

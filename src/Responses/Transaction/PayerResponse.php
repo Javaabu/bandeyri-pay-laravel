@@ -1,8 +1,8 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Responses\Transaction;
+namespace Javaabu\BandeyriPay\Responses\Transaction;
 
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
 
 class PayerResponse implements ResponseContract
 {

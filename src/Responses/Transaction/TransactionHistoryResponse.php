@@ -1,9 +1,9 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Responses\Transaction;
+namespace Javaabu\BandeyriPay\Responses\Transaction;
 
 use Illuminate\Support\Carbon;
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
 
 class TransactionHistoryResponse implements ResponseContract
 {

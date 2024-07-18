@@ -1,13 +1,13 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Requests;
+namespace Javaabu\BandeyriPay\Requests;
 
 use Illuminate\Support\Collection;
-use Javaabu\BandeyriGateway\BandeyriGateway;
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
-use Javaabu\BandeyriGateway\Responses\BandeyriGatewayResponse;
-use Javaabu\BandeyriGateway\Requests\Traits\HasBandeyriRequest;
-use Javaabu\BandeyriGateway\Responses\Transaction\TransactionResponse;
+use Javaabu\BandeyriPay\BandeyriPay;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Responses\BandeyriPayResponse;
+use Javaabu\BandeyriPay\Requests\Traits\HasBandeyriRequest;
+use Javaabu\BandeyriPay\Responses\Transaction\TransactionResponse;
 
 class GetTransactionsRequest implements BandeyriRequest
 {
@@ -16,7 +16,7 @@ class GetTransactionsRequest implements BandeyriRequest
     public string $method = 'GET';
 
     public function __construct(
-        public BandeyriGateway $bandeyriGateway,
+        public BandeyriPay $bandeyriGateway,
         public ?string $transaction_id = null,
     ) {
     }
@@ -35,12 +35,12 @@ class GetTransactionsRequest implements BandeyriRequest
         return TransactionResponse::from($response_data);
     }
 
-    public function get(): BandeyriGatewayResponse
+    public function get(): BandeyriPayResponse
     {
         return $this->send();
     }
 
-    public function paginate(int $page = 1): BandeyriGatewayResponse
+    public function paginate(int $page = 1): BandeyriPayResponse
     {
         $this->query_params = [
             'page' => $page,

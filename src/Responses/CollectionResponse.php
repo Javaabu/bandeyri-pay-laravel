@@ -1,10 +1,10 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Responses;
+namespace Javaabu\BandeyriPay\Responses;
 
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
-use Javaabu\BandeyriGateway\Responses\Common\LinkResponse;
-use Javaabu\BandeyriGateway\Responses\Common\MetaResponse;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Responses\Common\LinkResponse;
+use Javaabu\BandeyriPay\Responses\Common\MetaResponse;
 
 class CollectionResponse implements ResponseContract
 {

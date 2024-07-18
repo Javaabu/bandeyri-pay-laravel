@@ -1,6 +1,6 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Exceptions;
+namespace Javaabu\BandeyriPay\Exceptions;
 
 use Exception;
 

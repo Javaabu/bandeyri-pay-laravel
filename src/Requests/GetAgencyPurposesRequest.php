@@ -1,12 +1,12 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Requests;
+namespace Javaabu\BandeyriPay\Requests;
 
 use Illuminate\Support\Collection;
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
-use Javaabu\BandeyriGateway\Responses\BandeyriGatewayResponse;
-use Javaabu\BandeyriGateway\Requests\Traits\HasBandeyriRequest;
-use Javaabu\BandeyriGateway\Responses\Purpose\AgencyPurposeResponse;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Responses\BandeyriPayResponse;
+use Javaabu\BandeyriPay\Requests\Traits\HasBandeyriRequest;
+use Javaabu\BandeyriPay\Responses\Purpose\AgencyPurposeResponse;
 
 class GetAgencyPurposesRequest implements BandeyriRequest
 {
@@ -29,7 +29,7 @@ class GetAgencyPurposesRequest implements BandeyriRequest
         return $data_array;
     }
 
-    public function get(): BandeyriGatewayResponse
+    public function get(): BandeyriPayResponse
     {
         return $this->send();
     }

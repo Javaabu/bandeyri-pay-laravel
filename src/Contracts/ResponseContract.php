@@ -1,6 +1,6 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Contracts;
+namespace Javaabu\BandeyriPay\Contracts;
 
 interface ResponseContract
 {

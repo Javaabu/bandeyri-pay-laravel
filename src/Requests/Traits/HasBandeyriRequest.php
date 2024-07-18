@@ -1,17 +1,17 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Requests\Traits;
+namespace Javaabu\BandeyriPay\Requests\Traits;
 
 use Illuminate\Support\Facades\Http;
-use Javaabu\BandeyriGateway\BandeyriGateway;
-use Javaabu\BandeyriGateway\Responses\BandeyriGatewayResponse;
+use Javaabu\BandeyriPay\BandeyriPay;
+use Javaabu\BandeyriPay\Responses\BandeyriPayResponse;
 
 trait HasBandeyriRequest
 {
     protected array $query_params = [];
 
     public function __construct(
-        public BandeyriGateway $bandeyriGateway,
+        public BandeyriPay $bandeyriGateway,
     ) {
     }
 
@@ -48,7 +48,7 @@ trait HasBandeyriRequest
         return $this->bandeyriGateway->getApiUrl() . $this->resolveEndpoint();
     }
 
-    public function send(): ?BandeyriGatewayResponse
+    public function send(): ?BandeyriPayResponse
     {
         $request_method = $this->getRequestMethod();
         $sanitized_request_method = str($request_method)->lower()->__toString();
@@ -59,7 +59,7 @@ trait HasBandeyriRequest
             default => Http::withHeaders($this->bandeyriGateway->getHeaders())->get($request_url, $this->defaultBody()),
         };
 
-        return new BandeyriGatewayResponse($response, $this);
+        return new BandeyriPayResponse($response, $this);
     }
 
 }

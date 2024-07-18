@@ -1,8 +1,8 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Responses\Agency;
+namespace Javaabu\BandeyriPay\Responses\Agency;
 
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
 
 class AgencyFocalPointResponse implements ResponseContract
 {

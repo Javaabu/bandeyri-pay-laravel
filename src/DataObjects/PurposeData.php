@@ -1,6 +1,6 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\DataObjects;
+namespace Javaabu\BandeyriPay\DataObjects;
 
 class PurposeData implements DataObject
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Enums;
+namespace Javaabu\BandeyriPay\Enums;
 
 enum TransactionStates: string
 {

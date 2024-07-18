@@ -1,8 +1,8 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Responses\Purpose;
+namespace Javaabu\BandeyriPay\Responses\Purpose;
 
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
 
 class AgencyPurposeResponse implements ResponseContract
 {

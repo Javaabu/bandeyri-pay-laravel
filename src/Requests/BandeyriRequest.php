@@ -1,9 +1,9 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Requests;
+namespace Javaabu\BandeyriPay\Requests;
 
 use Illuminate\Support\Collection;
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
 
 interface BandeyriRequest
 {

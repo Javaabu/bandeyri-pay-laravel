@@ -3,19 +3,19 @@
 namespace Javaabu\BandeyriPay;
 
 use Illuminate\Support\Facades\Http;
-use Javaabu\BandeyriGateway\Exceptions\InvalidData;
-use Javaabu\BandeyriGateway\Exceptions\ActionFailed;
-use Javaabu\BandeyriGateway\Exceptions\Unauthorized;
-use Javaabu\BandeyriGateway\DataObjects\TransactionData;
-use Javaabu\BandeyriGateway\Exceptions\ResourceNotFound;
-use Javaabu\BandeyriGateway\Requests\GetTransactionsRequest;
-use Javaabu\BandeyriGateway\Requests\CreateTransactionRequest;
-use Javaabu\BandeyriGateway\Requests\GetAgencyPurposesRequest;
-use Javaabu\BandeyriGateway\Responses\BandeyriGatewayResponse;
-use Javaabu\BandeyriGateway\Requests\GetAgencyInformationRequest;
-use Javaabu\BandeyriGateway\Responses\Transaction\TransactionResponse;
+use Javaabu\BandeyriPay\Exceptions\InvalidData;
+use Javaabu\BandeyriPay\Exceptions\ActionFailed;
+use Javaabu\BandeyriPay\Exceptions\Unauthorized;
+use Javaabu\BandeyriPay\DataObjects\TransactionData;
+use Javaabu\BandeyriPay\Exceptions\ResourceNotFound;
+use Javaabu\BandeyriPay\Responses\BandeyriPayResponse;
+use Javaabu\BandeyriPay\Requests\GetTransactionsRequest;
+use Javaabu\BandeyriPay\Requests\CreateTransactionRequest;
+use Javaabu\BandeyriPay\Requests\GetAgencyPurposesRequest;
+use Javaabu\BandeyriPay\Requests\GetAgencyInformationRequest;
+use Javaabu\BandeyriPay\Responses\Transaction\TransactionResponse;
 
-class BandeyriGateway
+class BandeyriPay
 {
     private string $api_url;
 
@@ -25,9 +25,9 @@ class BandeyriGateway
 
     public function __construct()
     {
-        $this->client_id = config('services.bandeyri_gateway.client_id');
-        $this->client_secret = config('services.bandeyri_gateway.client_secret');
-        $this->api_url = config('services.bandeyri_gateway.bandeyri_api_url');
+        $this->client_id = config('bandeyri-pay.bandeyri_api_url');
+        $this->client_secret = config('bandeyri-pay.bandeyri_client_id');
+        $this->api_url = config('bandeyri-pay.bandeyri_client_secret');
         $this->bearer_token = $this->setBearerToken();
     }
 
@@ -57,31 +57,31 @@ class BandeyriGateway
         ];
     }
 
-    public function getAgency(): BandeyriGatewayResponse
+    public function getAgency(): BandeyriPayResponse
     {
         $agency_request = new GetAgencyInformationRequest($this);
         return $agency_request->get();
     }
 
-    public function getPurposes(): BandeyriGatewayResponse
+    public function getPurposes(): BandeyriPayResponse
     {
         $purpose_request = new GetAgencyPurposesRequest($this);
         return $purpose_request->get();
     }
 
-    public function getTransactions(): BandeyriGatewayResponse
+    public function getTransactions(): BandeyriPayResponse
     {
         $transaction_request = new GetTransactionsRequest($this);
         return $transaction_request->get();
     }
 
-    public function paginateTransactions(int $page = 1): BandeyriGatewayResponse
+    public function paginateTransactions(int $page = 1): BandeyriPayResponse
     {
         $transaction_request = new GetTransactionsRequest($this);
         return $transaction_request->paginate($page);
     }
 
-    public function getTransactionById(string $transaction_id): BandeyriGatewayResponse
+    public function getTransactionById(string $transaction_id): BandeyriPayResponse
     {
         $transaction_request = new GetTransactionsRequest($this, $transaction_id);
         return $transaction_request->get();
@@ -102,7 +102,7 @@ class BandeyriGateway
         return $transaction_data->url;
     }
 
-    public function createTransaction(TransactionData $data): BandeyriGatewayResponse
+    public function createTransaction(TransactionData $data): BandeyriPayResponse
     {
         $transaction_request = new CreateTransactionRequest($this, $data);
         return $transaction_request->create();

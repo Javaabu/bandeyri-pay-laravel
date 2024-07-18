@@ -1,8 +1,8 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Responses\Common;
+namespace Javaabu\BandeyriPay\Responses\Common;
 
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
 
 class LinkResponse implements ResponseContract
 {

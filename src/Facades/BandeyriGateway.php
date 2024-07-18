@@ -1,16 +1,16 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Facades;
+namespace Javaabu\BandeyriPay\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Javaabu\BandeyriGateway\BandeyriGateway
+ * @see \Javaabu\BandeyriPay\BandeyriPay
  */
-class BandeyriGateway extends Facade
+class BandeyriPay extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Javaabu\BandeyriGateway\BandeyriGateway::class;
+        return \Javaabu\BandeyriPay\BandeyriPay::class;
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Javaabu\BandeyriGateway\Requests;
+namespace Javaabu\BandeyriPay\Requests;
 
 use Illuminate\Support\Collection;
-use Javaabu\BandeyriGateway\BandeyriGateway;
-use Javaabu\BandeyriGateway\Contracts\ResponseContract;
-use Javaabu\BandeyriGateway\DataObjects\TransactionData;
-use Javaabu\BandeyriGateway\Responses\BandeyriGatewayResponse;
-use Javaabu\BandeyriGateway\Requests\Traits\HasBandeyriRequest;
-use Javaabu\BandeyriGateway\Responses\Transaction\TransactionResponse;
+use Javaabu\BandeyriPay\BandeyriPay;
+use Javaabu\BandeyriPay\Contracts\ResponseContract;
+use Javaabu\BandeyriPay\DataObjects\TransactionData;
+use Javaabu\BandeyriPay\Responses\BandeyriPayResponse;
+use Javaabu\BandeyriPay\Requests\Traits\HasBandeyriRequest;
+use Javaabu\BandeyriPay\Responses\Transaction\TransactionResponse;
 
 class CreateTransactionRequest implements BandeyriRequest
 {
@@ -17,7 +17,7 @@ class CreateTransactionRequest implements BandeyriRequest
     public string $method = 'POST';
 
     public function __construct(
-        public BandeyriGateway $bandeyriGateway,
+        public BandeyriPay $bandeyriGateway,
         public TransactionData $transactionCreateData,
     ) {
 
@@ -65,7 +65,7 @@ class CreateTransactionRequest implements BandeyriRequest
         return TransactionResponse::from($response_data);
     }
 
-    public function create(): BandeyriGatewayResponse
+    public function create(): BandeyriPayResponse
     {
         return $this->send();
     }
