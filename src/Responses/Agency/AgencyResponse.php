@@ -10,10 +10,11 @@ class AgencyResponse implements ResponseContract
         public string $name,
         public string $business_area,
         public string $timezone,
-        public string $type,
-        public string $domain,
-        public array  $transaction_types,
-        public array  $contacts,
+        public ?string $type,
+        public ?string $domain,
+        public ?array $additional_domains,
+        public ?array  $transaction_types,
+        public ?array  $contacts,
     ) {
     }
 
@@ -34,6 +35,7 @@ class AgencyResponse implements ResponseContract
             timezone: data_get($data, 'timezone'),
             type: data_get($data, 'type'),
             domain: data_get($data, 'domain'),
+            additional_domains: data_get($data, 'additional_domains'),
             transaction_types: $transaction_types,
             contacts: $contacts_dto,
         );
