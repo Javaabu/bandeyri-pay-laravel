@@ -26,6 +26,6 @@ class BandeyriPayServiceProvider extends ServiceProvider
     public function register()
     {
         // merge package config with user defined config
-        $this->mergeConfigFrom(__DIR__ . '/../config/bandeyri-pay-laravel.php', 'bandeyri-pay-laravel');
+        $this->mergeConfigFrom(__DIR__ . '/../config/bandeyri-pay.php', 'bandeyri-pay');
     }
 }
