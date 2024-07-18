@@ -8,7 +8,6 @@ use Javaabu\BandeyriPay\Tests\TestSupport\Providers\TestServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();

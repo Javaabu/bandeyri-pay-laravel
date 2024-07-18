@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class BandeyriPayServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      */
