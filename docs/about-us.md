@@ -1,6 +1,6 @@
 ---
 title: About Us
-sidebar_position: 1.6
+sidebar_position: 7.6
 ---
 
 [Javaabu](https://javaabu.com) is a web design agency based in the Maldives.

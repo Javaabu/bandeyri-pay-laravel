@@ -2,8 +2,8 @@
 
 namespace Javaabu\BandeyriPay;
 
-use http\Exception\InvalidArgumentException;
 use Illuminate\Support\Facades\Http;
+use Javaabu\BandeyriPay\Exceptions\InvalidConfiguration;
 use Javaabu\BandeyriPay\Exceptions\InvalidData;
 use Javaabu\BandeyriPay\Exceptions\ActionFailed;
 use Javaabu\BandeyriPay\Exceptions\Unauthorized;
@@ -24,11 +24,14 @@ class BandeyriPay
     private string $client_secret;
     private ?string $bearer_token;
 
+    /**
+     * @throws InvalidConfiguration
+     */
     public function __construct()
     {
-        $this->client_id = config('bandeyri-pay.bandeyri_client_id') ?? throw new InvalidArgumentException("Bandeyri API URL is not configured");
-        $this->client_secret = config('bandeyri-pay.bandeyri_client_secret') ?? throw new InvalidArgumentException("Bandeyri Client ID is not configured");
-        $this->api_url = config('bandeyri-pay.bandeyri_api_url') ?? throw new InvalidArgumentException("Bandeyri Client Secret is not configured");
+        $this->client_id = config('bandeyri-pay.bandeyri_client_id') ?? throw new InvalidConfiguration("Bandeyri API URL is not configured");
+        $this->client_secret = config('bandeyri-pay.bandeyri_client_secret') ?? throw new InvalidConfiguration("Bandeyri Client ID is not configured");
+        $this->api_url = config('bandeyri-pay.bandeyri_api_url') ?? throw new InvalidConfiguration("Bandeyri Client Secret is not configured");
         $this->bearer_token = $this->setBearerToken();
     }
 
