@@ -12,6 +12,46 @@ use Javaabu\BandeyriPay\Tests\TestCase;
 class TransactionTest extends TestCase
 {
 
+    public function test_the_outgoing_request_for_transaction_pagination_is_correct()
+    {
+
+        Http::fake([
+            $this->test_api_url . '/transactions' => Http::response([], 200),
+        ]);
+
+        // Create an instance of the BandeyriPay class
+        $bandeyriPay = new BandeyriPay();
+        $bandeyriPay->setBearerToken('test_token');
+        $bandeyriPay->setExpiresAt(now()->addYear());
+        $bandeyriPay->getTransactions(1);
+
+        // assert the url of the request
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return $request->url() === $this->test_api_url . '/transactions'
+                && $request->data() === ['page' => '1'];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return $request->method() === 'GET';
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'authorization') === ["Bearer test_token"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'accept') === ["application/json"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'content-type') === ["application/json"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'x-bpg-api') === ["v1"];
+        });
+    }
+
     public function test_it_can_retrieve_transactions()
     {
         Http::fake([
@@ -139,47 +179,6 @@ class TransactionTest extends TestCase
 
         // test it can convert response into a DTO TransactionResponse
         $this->assertInstanceOf(TransactionResponse::class, $transactionsDto->data[0]);
-    }
-
-
-    public function test_the_outgoing_request_for_transaction_pagination_is_correct()
-    {
-
-        Http::fake([
-            $this->test_api_url . '/transactions' => Http::response([], 200),
-        ]);
-
-        // Create an instance of the BandeyriPay class
-        $bandeyriPay = new BandeyriPay();
-        $bandeyriPay->setBearerToken('test_token');
-        $bandeyriPay->setExpiresAt(now()->addYear());
-        $bandeyriPay->getTransactions(1);
-
-        // assert the url of the request
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
-            return $request->url() === $this->test_api_url . '/transactions'
-                && $request->data() === ['page' => '1'];
-        });
-
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
-            return $request->method() === 'GET';
-        });
-
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
-            return data_get($request->headers(), 'authorization') === ["Bearer test_token"];
-        });
-
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
-            return data_get($request->headers(), 'accept') === ["application/json"];
-        });
-
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
-            return data_get($request->headers(), 'content-type') === ["application/json"];
-        });
-
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
-            return data_get($request->headers(), 'x-bpg-api') === ["v1"];
-        });
     }
 
     public function test_it_can_retrieve_paginated_transactions()
