@@ -28,7 +28,6 @@ $agency->transaction_types; // Array of TransactionTypeResponse objects
 $agency->contacts; // Array [agency => ContactResponse, focal_point => ContactResponse]
 ```
 
-
 ## Additional methods
 In addition to the `toDto()` method, you can use the below methods on the response object.
 

@@ -10,6 +10,42 @@ use Javaabu\BandeyriPay\Tests\TestCase;
 class AgencyTest extends TestCase
 {
 
+    public function test_outgoing_request_for_agency_information_is_correct()
+    {
+        Http::fake([
+            $this->test_api_url . '/agency' => Http::response([], 200)
+        ]);
+
+        $bandeyriPay = app(BandeyriPay::class);
+        $bandeyriPay->setBearerToken('test_token');
+        $bandeyriPay->setExpiresAt(now()->addYear());
+        $bandeyriPay->getAgency();
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return $request->url() === $this->test_api_url . '/agency';
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return $request->method() === 'GET';
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'authorization') === ["Bearer test_token"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'accept') === ["application/json"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'content-type') === ["application/json"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'x-bpg-api') === ["v1"];
+        });
+    }
+
     public function test_it_can_retrieve_agency_information()
     {
         Http::fake([

@@ -52,8 +52,8 @@ class BandeyriPay
 
         if ($response->successful()) {
             $data = $response->json();
-            $expires_at = Carbon::now()->addSeconds($data['expires_in']);
-            $this->bearer_token = $data['access_token'];
+            $expires_at = Carbon::now()->addSeconds(data_get($data, 'expires_in'));
+            $this->bearer_token = data_get($data, 'access_token');
             $this->expires_at = $expires_at;
 
             // Cache the token and expiry time
@@ -62,6 +62,16 @@ class BandeyriPay
         } else {
             throw new Unauthorized("Failed to authenticate with Bandeyri API");
         }
+    }
+
+    public function setBearerToken(string $bearer_token): void
+    {
+        $this->bearer_token = $bearer_token;
+    }
+
+    public function setExpiresAt(Carbon $expires_at): void
+    {
+        $this->expires_at = $expires_at;
     }
 
     public function getApiUrl(): string

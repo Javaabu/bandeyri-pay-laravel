@@ -11,6 +11,42 @@ use Javaabu\BandeyriPay\Tests\TestCase;
 class PurposeTest extends TestCase
 {
 
+    public function test_outgoing_request_for_purposes_is_correct()
+    {
+        Http::fake([
+            $this->test_api_url . '/purposes' => Http::response([], 200)
+        ]);
+
+        $bandeyriPay = app(BandeyriPay::class);
+        $bandeyriPay->setBearerToken('test_token');
+        $bandeyriPay->setExpiresAt(now()->addYear());
+        $bandeyriPay->getPurposes();
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return $request->url() === $this->test_api_url . '/purposes';
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return $request->method() === 'GET';
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'authorization') === ["Bearer test_token"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'accept') === ["application/json"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'content-type') === ["application/json"];
+        });
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+            return data_get($request->headers(), 'x-bpg-api') === ["v1"];
+        });
+    }
+
     public function test_it_can_retrieve_purposes()
     {
         Http::fake([
