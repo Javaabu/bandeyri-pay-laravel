@@ -33,7 +33,7 @@ bandeyriPay()->getAgency();
 ```
 
 ### Get Agency purposes
-This method provides a list of services offered by the agency. For example, if the Ministry of Islamic Affairs uses the API, the purposes will be the services provided by the Ministry. Each transaction will have a specific purpose, and the payment will be made for that purpose.
+This method provides a list of services offered by the agency, similar to budge codes where specific types of funds are collected under designated codes. For example, if the Ministry of Islamic Affairs uses the API, the purposes will be the services provided by the Ministry. Each transaction will have a specific purpose, and the payment will be made for that purpose.
 ```php
 bandeyriPay()->getPurposes();
 ```
