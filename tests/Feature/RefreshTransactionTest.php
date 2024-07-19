@@ -21,7 +21,7 @@ class RefreshTransactionTest extends TestCase
         $bandeyriPay = app(BandeyriPay::class);
         $bandeyriPay->setBearerToken('test_token');
         $bandeyriPay->setExpiresAt(now()->addYear());
-        $bandeyriPay->refreshTransactionProvider($transaction_id);
+        $bandeyriPay->refreshTransaction($transaction_id);
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($transaction_id) {
             return $request->url() === $this->test_api_url . '/refresh/' . $transaction_id;
@@ -59,7 +59,7 @@ class RefreshTransactionTest extends TestCase
         $bandeyriPay = app(BandeyriPay::class);
         $bandeyriPay->setBearerToken('test_token');
         $bandeyriPay->setExpiresAt(now()->addYear());
-        $response = $bandeyriPay->refreshTransactionProvider($transaction_id);
+        $response = $bandeyriPay->refreshTransaction($transaction_id);
 
         $this->assertInstanceOf(TransactionResponse::class, $response->toDto()->data);
     }

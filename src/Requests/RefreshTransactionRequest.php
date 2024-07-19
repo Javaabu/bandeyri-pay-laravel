@@ -11,7 +11,7 @@ use Javaabu\BandeyriPay\Requests\Traits\HasBandeyriRequest;
 use Javaabu\BandeyriPay\Responses\Transaction\ProviderResponse;
 use Javaabu\BandeyriPay\Responses\Transaction\TransactionResponse;
 
-class RefreshTransactionProviderRequest implements BandeyriRequest
+class RefreshTransactionRequest implements BandeyriRequest
 {
     use HasBandeyriRequest;
 
