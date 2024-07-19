@@ -1,6 +1,6 @@
 ---
 title: How to use the package
-sidebar_position: 2.1
+sidebar_position: 2.2
 ---
 
 ## Setting up the environment
