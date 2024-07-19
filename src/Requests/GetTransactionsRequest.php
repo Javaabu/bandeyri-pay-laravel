@@ -32,6 +32,7 @@ class GetTransactionsRequest implements BandeyriRequest
 
     public function createDtoFromResponse(array $response_data): ResponseContract|Collection
     {
+        dd($response_data);
         $data_array = collect();
         foreach ($response_data as $transaction) {
             $data_array->push(TransactionResponse::from($transaction));
