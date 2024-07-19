@@ -12,6 +12,7 @@ use Javaabu\BandeyriPay\Exceptions\Unauthorized;
 use Javaabu\BandeyriPay\DataObjects\TransactionData;
 use Javaabu\BandeyriPay\Exceptions\ResourceNotFound;
 use Javaabu\BandeyriPay\Requests\GetSingleTransactionsRequest;
+use Javaabu\BandeyriPay\Requests\RefreshTransactionProviderRequest;
 use Javaabu\BandeyriPay\Responses\BandeyriPayResponse;
 use Javaabu\BandeyriPay\Requests\GetTransactionsRequest;
 use Javaabu\BandeyriPay\Requests\CreateTransactionRequest;
@@ -153,6 +154,12 @@ class BandeyriPay
     {
         $transaction_request = new CreateTransactionRequest($this, $data);
         return $transaction_request->create();
+    }
+
+    public function refreshTransactionProvider(string $transaction_id): BandeyriPayResponse
+    {
+        $transaction_request = new RefreshTransactionProviderRequest($this, $transaction_id);
+        return $transaction_request->get();
     }
 
 }
