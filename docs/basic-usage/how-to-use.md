@@ -26,33 +26,34 @@ app(\Javaabu\BandeyriPay\BandeyriPay::class);
 ```
 
 Once the instance is obtained, you can use the following methods to interact with the Bandeyri Pay API.
-1. Get Agency information
+### Get Agency information
 ```php
 bandeyriPay()->getAgency();
 ```
 
-2. Get Agency purposes
+### Get Agency purposes
 ```php
 bandeyriPay()->getPurposes();
 ```
 
-3. Get all transactions
+### Get all transactions
 ```php
 bandeyriPay()->getTransactions();
 bandeyriPay()->paginateTransactions(page: 2);
 ```
 
-4. Get transaction
+### Get transaction
 ```php
 bandeyriPay()->getTransaction(transactionId: 'transaction-id');
 ```
 
-5. Create transaction
+### Create transaction
 ```php
 $transaction_data = TransactionData::fromArray([...])
 bandeyriPay()->createTransaction(data: $transaction_data);
 ```
 
+### Other Available Methods
 All the methods will return a BandeyriPayResponse object. You can use the `toDto()` method to convert the response to a DTO object. Below is an example of how to use the response object.
 
 ```php
