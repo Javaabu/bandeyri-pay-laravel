@@ -36,14 +36,4 @@ return [
      * and it will display the signing secret.
      */
     'bandeyri_app_signing_secret' => env('BADEYRI_APP_SIGNING_SECRET'),
-
-
-    /*
-     * Purpose Identifier
-     *
-     * This is the identifier for the purpose of the
-     * transaction. Purpose can use either "id" or
-     * "local_code" as the identifier.
-     */
-    'purpose_identifier' => env('PURPOSE_IDENTIFIER', 'id'),
 ];

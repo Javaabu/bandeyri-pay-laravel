@@ -27,27 +27,32 @@ app(\Javaabu\BandeyriPay\BandeyriPay::class);
 
 Once the instance is obtained, you can use the following methods to interact with the Bandeyri Pay API.
 ### Get Agency information
+This method provides information about the government office responsible for the Bandeyri Pay API. For example, if the Ministry of Islamic Affairs uses the API, the agency information will pertain to the Ministry of Islamic Affairs.
 ```php
 bandeyriPay()->getAgency();
 ```
 
 ### Get Agency purposes
+This method provides a list of services offered by the agency. For example, if the Ministry of Islamic Affairs uses the API, the purposes will be the services provided by the Ministry. Each transaction will have a specific purpose, and the payment will be made for that purpose.
 ```php
 bandeyriPay()->getPurposes();
 ```
 
 ### Get all transactions
+This method provides a list of all transactions made through the Bandeyri Pay API. You can also paginate the results by passing the page number as an argument to the `paginateTransactions` method.
 ```php
 bandeyriPay()->getTransactions();
 bandeyriPay()->paginateTransactions(page: 2);
 ```
 
 ### Get transaction
+This method provides information about a specific transaction. You need to pass the transaction ID as an argument to the `getTransaction` method.
 ```php
-bandeyriPay()->getTransaction(transactionId: 'transaction-id');
+bandeyriPay()->getTransactionById(transactionId: 'transaction-id');
 ```
 
 ### Create transaction
+This method is used to create a new transaction. You need to pass the transaction data as an argument to the `createTransaction` method. The transaction data should be an instance of the `TransactionData` class.
 ```php
 $transaction_data = TransactionData::fromArray([...])
 bandeyriPay()->createTransaction(data: $transaction_data);

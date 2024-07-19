@@ -69,10 +69,14 @@ class BandeyriPay
         return $this->api_url;
     }
 
+    /**
+     * @throws Unauthorized
+     */
     public function getHeaders(): array
     {
+        $bearer_token = $this->getBearerToken();
         return [
-            'authorization' => "Bearer $this->bearer_token",
+            'authorization' => "Bearer $bearer_token",
             'accept' => 'application/json',
             'content-type' => 'application/json',
             'x-bpg-api' => 'v1',
