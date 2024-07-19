@@ -107,16 +107,14 @@ class BandeyriPay
         return $purpose_request->get();
     }
 
-    public function getTransactions(): BandeyriPayResponse
+    public function getTransactions(?int $page = null): BandeyriPayResponse
     {
         $transaction_request = new GetTransactionsRequest($this);
-        return $transaction_request->get();
-    }
+        if ($page) {
+            return $transaction_request->paginate($page);
+        }
 
-    public function paginateTransactions(int $page = 1): BandeyriPayResponse
-    {
-        $transaction_request = new GetTransactionsRequest($this);
-        return $transaction_request->paginate($page);
+        return $transaction_request->get();
     }
 
     public function getTransactionById(string $transaction_id): BandeyriPayResponse

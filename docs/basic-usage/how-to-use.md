@@ -42,13 +42,18 @@ bandeyriPay()->getPurposes();
 This method provides a list of all transactions made through the Bandeyri Pay API. You can also paginate the results by passing the page number as an argument to the `paginateTransactions` method.
 ```php
 bandeyriPay()->getTransactions();
-bandeyriPay()->paginateTransactions(page: 2);
+```
+
+If you would like to paginate the transactions, you can pass the page number as an argument to the `getTransactions` method. The transactions are paginated with a default limit of 15 transactions per page. Bandeyri Pay API does not allow you to change the per page limit.
+
+```php
+bandeyriPay()->getTransactions(page: 1);
 ```
 
 ### Get transaction
 This method provides information about a specific transaction. You need to pass the transaction ID as an argument to the `getTransaction` method.
 ```php
-bandeyriPay()->getTransactionById(transactionId: 'transaction-id');
+bandeyriPay()->getTransactionById(transactionId: 'transaction-uuid');
 ```
 
 ### Create transaction
@@ -56,36 +61,4 @@ This method is used to create a new transaction. You need to pass the transactio
 ```php
 $transaction_data = TransactionData::fromArray([...])
 bandeyriPay()->createTransaction(data: $transaction_data);
-```
-
-### Other Available Methods
-All the methods will return a BandeyriPayResponse object. You can use the `toDto()` method to convert the response to a DTO object. Below is an example of how to use the response object.
-
-```php
-/* @var BandeyriPayResponse $agency_information */
-$agency_information = bandeyriPay()->getAgency();
-
-/* @var CollectionResponse $agency_information_response */
-$agency_information_response = $agency_information->toDto();
-
-/* @var AgencyResponse $agency_obj */
-$agency = $agency_information_response->data;
-
-$agency->name; // Agency name
-$agency->business_area; // Agency business_area
-$agency->timezone; // Agency timezone
-$agency->type; // Agency type
-$agency->domain; // Agency domain
-$agency->additional_domains; // Agency additional domains
-$agency->transaction_types; // Array of TransactionTypeResponse objects
-$agency->contacts; // Array [agency => ContactResponse, focal_point => ContactResponse]
-```
-
-In addition to the `toDto()` method, you can use the below methods on the response object.
-
-```php
-$response->isSuccessful(); // Check if the request was successful
-$response->toArray(); // Convert the response to an array
-$response->toJson(); // Convert the response to a JSON string
-$response->toDto(); // Convert the response to a DTO object
 ```
