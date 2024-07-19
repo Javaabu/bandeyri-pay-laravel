@@ -2,6 +2,8 @@
 
 namespace Javaabu\BandeyriPay;
 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Javaabu\BandeyriPay\Exceptions\InvalidConfiguration;
 use Javaabu\BandeyriPay\Exceptions\InvalidData;
@@ -23,6 +25,7 @@ class BandeyriPay
     private string $client_id;
     private string $client_secret;
     private ?string $bearer_token;
+    private ?Carbon $expires_at;
 
     /**
      * @throws InvalidConfiguration
@@ -32,10 +35,14 @@ class BandeyriPay
         $this->client_id = config('bandeyri-pay.bandeyri_client_id') ?? throw new InvalidConfiguration("Bandeyri API URL is not configured");
         $this->client_secret = config('bandeyri-pay.bandeyri_client_secret') ?? throw new InvalidConfiguration("Bandeyri Client ID is not configured");
         $this->api_url = config('bandeyri-pay.bandeyri_api_url') ?? throw new InvalidConfiguration("Bandeyri Client Secret is not configured");
-        $this->bearer_token = $this->setBearerToken();
+        $this->bearer_token = Cache::get('bandeyri_access_token');
+        $this->expires_at = Cache::get('bandeyri_access_token_expires_at');
     }
 
-    private function setBearerToken()
+    /**
+     * @throws Unauthorized
+     */
+    private function authenticate(): void
     {
         $token_url = $this->api_url . '/token';
         $response = Http::post($token_url, [
@@ -43,7 +50,18 @@ class BandeyriPay
             'client_secret' => $this->client_secret,
         ]);
 
-        return $response->json('access_token');
+        if ($response->successful()) {
+            $data = $response->json();
+            $expires_at = Carbon::now()->addSeconds($data['expires_in']);
+            $this->bearer_token = $data['access_token'];
+            $this->expires_at = $expires_at;
+
+            // Cache the token and expiry time
+            Cache::put('bandeyri_access_token', $this->bearer_token, $expires_at);
+            Cache::put('bandeyri_access_token_expires_at', $expires_at, $expires_at);
+        } else {
+            throw new Unauthorized("Failed to authenticate with Bandeyri API");
+        }
     }
 
     public function getApiUrl(): string
@@ -61,8 +79,15 @@ class BandeyriPay
         ];
     }
 
+    /**
+     * @throws Unauthorized
+     */
     public function getBearerToken(): ?string
     {
+        if (!$this->bearer_token || !$this->expires_at || now()->greaterThanOrEqualTo($this->expires_at)) {
+            $this->authenticate();
+        }
+
         return $this->bearer_token;
     }
 
