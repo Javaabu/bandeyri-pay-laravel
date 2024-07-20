@@ -19,6 +19,7 @@ use Javaabu\BandeyriPay\Requests\CreateTransactionRequest;
 use Javaabu\BandeyriPay\Requests\GetAgencyPurposesRequest;
 use Javaabu\BandeyriPay\Requests\GetAgencyInformationRequest;
 use Javaabu\BandeyriPay\Responses\Transaction\TransactionResponse;
+use Javaabu\BandeyriPay\Responses\Webhook\WebhookResponse;
 
 class BandeyriPay
 {
@@ -160,6 +161,95 @@ class BandeyriPay
     {
         $transaction_request = new RefreshTransactionRequest($this, $transaction_id);
         return $transaction_request->get();
+    }
+
+
+    public function isValidSignature(
+        WebhookResponse $webhook_response,
+        bool            $exclude_customer_reference = false,
+        bool            $exclude_local_id = false
+    ): bool
+    {
+        $signature = $webhook_response->getSignature();
+        $signature_array = explode('.', $signature);
+        $timestamp = data_get($signature_array, 0);
+        $signature_string = data_get($signature_array, 1);
+
+        // Remove the v1= prefix in signature string
+        $signature = str_replace('v1=', '', $signature_string);
+
+        $hash = $this->makeSignature(
+            $webhook_response->id,
+            $webhook_response->state,
+            $exclude_customer_reference ? null : $webhook_response->customer_reference,
+            $exclude_local_id ? null : $webhook_response->local_id,
+            $webhook_response->created_at,
+            $timestamp
+        );
+
+        if (!hash_equals($hash, $signature)) {
+            return false;
+        }
+
+        return !$webhook_response->webhookIsExpired();
+    }
+
+    public function makeSignature(
+        string          $id,
+        string          $state,
+        string          $customer_reference,
+        string          $local_id,
+        string          $created_at,
+        string          $timestamp,
+    ): array|string
+    {
+        $shared_secret = config('bandeyri-pay.bandeyri_app_signing_secret');
+        $data_string = $this->getSignatureDataString(
+            $id,
+            $state,
+            $customer_reference,
+            $local_id
+        );
+
+        $message = $this->getSignatureMessage($created_at, $state, $data_string, $timestamp);
+        return str_replace(
+            ['+', '/', '='], ['-', '_', ''],
+            base64_encode(
+                hash_hmac('sha256', $message, $shared_secret, true)
+            )
+        );
+    }
+
+    private function getSignatureMessage(string $created_at, string $type, string $data_string, string $timestamp): string
+    {
+        return $timestamp . '.' .
+            'created_at=' . $created_at .
+            '&data=' . $data_string .
+            '&type=' . $type;
+    }
+
+    private function getSignatureDataString(
+        string $id,
+        ?string $state,
+        ?string $customer_reference = null,
+        ?string $local_id = null,
+    ): string
+    {
+        $data_string = '';
+
+        if ($customer_reference) {
+            $data_string .= 'customer_reference=' . $customer_reference . '&';
+        }
+
+        $data_string .= 'id=' . $id . '&';
+
+        if ($local_id) {
+            $data_string .= 'local_id=' . $local_id . '&';
+        }
+
+        $data_string .= 'state=' . $state;
+
+        return $data_string;
     }
 
 }
