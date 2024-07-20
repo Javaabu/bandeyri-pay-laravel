@@ -40,7 +40,7 @@ class CreateTransactionRequest implements BandeyriRequest
                     $purpose_array['id'] = $purpose->id;
                 }
 
-                if ($purpose->local_code) {
+                if (!$purpose->id && $purpose->local_code) {
                     $purpose_array['local_code'] = $purpose->local_code;
                 }
 
@@ -53,8 +53,12 @@ class CreateTransactionRequest implements BandeyriRequest
         $body_data = [
             'currency' => $this->transactionCreateData->currency,
             'purposes' => $purposes_array,
-            'customer' => $this->transactionCreateData->customer,
-            'return_url' => $this->transactionCreateData->redirectUrl,
+            'customer' => [
+                'type' => $this->transactionCreateData->customer->type,
+                'id' => $this->transactionCreateData->customer->id,
+                'name' => $this->transactionCreateData->customer->name,
+            ],
+            'return_url' => $this->transactionCreateData->return_url,
         ];
 
         return $body_data;

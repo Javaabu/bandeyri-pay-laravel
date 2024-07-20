@@ -8,7 +8,7 @@ class TransactionData implements DataObject
         public ?string $currency,
         public ?array $purposes,
         public ?CustomerData $customer,
-        public ?string $redirectUrl,
+        public ?string $return_url,
         public ?string $local_id,
         public ?string $customer_reference,
     ) {
@@ -24,7 +24,7 @@ class TransactionData implements DataObject
             currency: data_get($data, 'currency'),
             purposes: $purposes,
             customer: CustomerData::fromArray(data_get($data, 'customer', [])),
-            redirectUrl: data_get($data, 'redirect_url'),
+            return_url: data_get($data, 'return_url'),
             local_id: data_get($data, 'local_id'),
             customer_reference: data_get($data, 'customer_reference'),
         );
