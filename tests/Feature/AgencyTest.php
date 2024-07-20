@@ -49,11 +49,6 @@ class AgencyTest extends TestCase
     public function test_it_can_retrieve_agency_information()
     {
         Http::fake([
-            $this->test_api_url . '/token' => Http::response([
-                'token_type' => 'Bearer',
-                'expires_in' => 31536000,
-                'access_token' => 'test_token'
-            ], 200),
             $this->test_api_url . '/agency' => Http::response([
                 'status' => 'success',
                 'data' => [
@@ -87,6 +82,8 @@ class AgencyTest extends TestCase
 
         // Create an instance of the BandeyriPay class
         $bandeyriPay = new BandeyriPay();
+        $bandeyriPay->setBearerToken('test_token');
+        $bandeyriPay->setExpiresAt(now()->addYear());
 
         // Get the agency info
         $agencyInfo = $bandeyriPay->getAgency();
