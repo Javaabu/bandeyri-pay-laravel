@@ -180,7 +180,7 @@ class BandeyriPay
 
         $hash = $this->makeSignature(
             $webhook_response->id,
-            $webhook_response->state,
+            $webhook_response->state?->value,
             $exclude_customer_reference ? null : $webhook_response->customer_reference,
             $exclude_local_id ? null : $webhook_response->local_id,
             $webhook_response->created_at,
