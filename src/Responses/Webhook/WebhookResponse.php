@@ -35,7 +35,7 @@ class WebhookResponse implements ResponseContract
             id: $request->input('data.id'),
             local_id: $request->input('data.local_id'),
             customer_reference: $request->input('data.customer_reference'),
-            state: $request->input('data.state') ? TransactionStates::fromValue($request->input('data.state')) : null,
+            state: $request->input('data.state') ? TransactionStates::tryFrom($request->input('data.state')) : null,
             signature: $signature,
         );
     }
